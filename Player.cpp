@@ -1,23 +1,20 @@
 #include "Player.h"
-#include"ImGuiManager.h"
-#include"Vector3.h"
 #include<cassert>
 
-void Player::Initialize(Model* model, uint32_t textureHandle) {
+void Player::Initialize(Model* model/*,uint32_t textureHandle*/) {
+	//NULLポインタチェック
 	assert(model);
-
-	textureHandle_ = textureHandle;
+	//メンバ変数に受け取った値を代入
+	/*textureHandle_ = textureHandle;*/
 	model_ = model;
-
+	//ワールド変換の初期化
 	worldTransform_.Initialize();
 }
-
-void Player::Update() {
-
-
-}
-
+//更新
+void Player::Update() {}
+//描画
 void Player::Draw(const ViewProjection& viewProjection) { 
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	//3Dモデルを描画
+	model_->Draw(worldTransform_, viewProjection);
 }
 
