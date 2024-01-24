@@ -55,25 +55,26 @@ private: // メンバ変数
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
-	/// 
-	ViewProjection viewProjection_;
-
+	
 	uint32_t textureHandle_ = 0u;
-
-	std::unique_ptr<Model> modelFighter_;
-
+	//3Dモデル
 	std::unique_ptr<Model> modelSkydorm_;
-
 	std::unique_ptr<Model> modelGround_;
-
+	std::unique_ptr<Model> modelFighterBody_;
+	std::unique_ptr<Model> modelFighterHead_;
+	std::unique_ptr<Model> modelFighterL_arm_;
+	std::unique_ptr<Model> modelFighterR_arm_;
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
+	//各クラス
 	std::unique_ptr<Player> player_;
 	std::unique_ptr<Ground> ground_;
 	std::unique_ptr<Skydorm> skydorm_;
-
+	std::unique_ptr<FollowCamera> followCamera_;
 	std::unique_ptr<DebugCamera> debugCamera_;
 
 	bool isDebugCameraActive_ = false;
 
-	std::unique_ptr<FollowCamera> followCamera_;
+	
 
 };

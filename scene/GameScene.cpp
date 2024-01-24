@@ -12,18 +12,27 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 
+	
+	//3Dモデルの生成
+	modelSkydorm_.reset(Model::CreateFromOBJ("skydome"));
+	modelGround_.reset(Model::CreateFromOBJ("ground"));
+	modelFighterBody_.reset(Model::CreateFromOBJ("float_Body"));
+	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head"));
+	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm"));
+	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm"));
+
+	//ビュープロジェクションの初期化
 	viewProjection_.farZ = 2000.0f;
 	viewProjection_.translation_ = {0.0f, 2.0f, -10.0f};
 	viewProjection_.Initialize();
-
-	textureHandle_ = TextureManager::Load("mario.jpg");
-
-	modelSkydorm_.reset(Model::CreateFromOBJ("skydome", true));
-	modelGround_.reset(Model::CreateFromOBJ("ground", true));
-	modelFighter_.reset(Model::CreateFromOBJ("float", true));
 	//自機
 	player_ = std::make_unique<Player>();
-	player_->Initialize(modelFighter_.get());
+	player_->Initialize(
+		modelFighterBody_.get(),
+		modelFighterHead_.get(),
+		modelFighterL_arm_.get(),
+		modelFighterR_arm_.get()
+	);
 	//地面
 	ground_ = std::make_unique<Ground>();
 	ground_->Initialize(modelGround_.get());
