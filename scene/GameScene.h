@@ -15,6 +15,7 @@
 #include"FollowCamera.h"
 #include"DebugCamera.h"
 #include"AxisIndicator.h"
+#include <Enemy.h>
 
 /// <summary>
 /// ゲームシーン
@@ -64,6 +65,9 @@ private: // メンバ変数
 	std::unique_ptr<Model> modelFighterHead_;
 	std::unique_ptr<Model> modelFighterL_arm_;
 	std::unique_ptr<Model> modelFighterR_arm_;
+	std::unique_ptr<Model> modelEnemyBody_;
+	std::unique_ptr<Model> modelEnemyL_arm_;
+	std::unique_ptr<Model> modelEnemyR_arm_;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 	//各クラス
@@ -72,6 +76,7 @@ private: // メンバ変数
 	std::unique_ptr<Skydorm> skydorm_;
 	std::unique_ptr<FollowCamera> followCamera_;
 	std::unique_ptr<DebugCamera> debugCamera_;
+	std::unique_ptr<Enemy> enemy_;
 
 	bool isDebugCameraActive_ = false;
 

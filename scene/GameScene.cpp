@@ -1,4 +1,6 @@
 #include "GameScene.h"
+#include"AxisIndicator.h"
+#include"MathUtilityForText.h"
 #include "TextureManager.h"
 #include <cassert>
 
@@ -20,6 +22,9 @@ void GameScene::Initialize() {
 	modelFighterHead_.reset(Model::CreateFromOBJ("float_Head"));
 	modelFighterL_arm_.reset(Model::CreateFromOBJ("float_L_arm"));
 	modelFighterR_arm_.reset(Model::CreateFromOBJ("float_R_arm"));
+	modelEnemyBody_ .reset(Model::CreateFromOBJ("needle_Body",true));
+	modelEnemyL_arm_ .reset(Model::CreateFromOBJ("needle_L_arm",true));
+	modelEnemyR_arm_ .reset(Model::CreateFromOBJ("needle_R_arm",true));
 
 	//ビュープロジェクションの初期化
 	viewProjection_.farZ = 2000.0f;
@@ -52,6 +57,16 @@ void GameScene::Initialize() {
 
 	followCamera_->SetTarget(&player_->GetWorldTransform());
 
+	//敵モデル
+	std::vector<Model*> enemyModels = {
+	    modelEnemyBody_.get(), modelEnemyL_arm_.get(), modelEnemyR_arm_.get()};
+	//敵の生成
+	enemy_ = std::make_unique<Enemy>();
+	//敵の初期化
+	enemy_->Initialize(enemyModels);
+	enemy_->SetLocalPosition(Vector3(10, 0, 20));
+	enemy_->SetLocalRotation(Vector3(0, PI, 0));
+
 	AxisIndicator::GetInstance()->SetVisible(true);
 
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
@@ -72,6 +87,7 @@ void GameScene::Update() {
 	}
 	viewProjection_.TransferMatrix();
 	player_->Update();
+	enemy_->Update();
 }
 
 void GameScene::Draw() {
@@ -104,7 +120,7 @@ void GameScene::Draw() {
 	player_->Draw(viewProjection_);
 	ground_->Draw(viewProjection_);
 	skydorm_->Draw(viewProjection_);
-
+	enemy_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

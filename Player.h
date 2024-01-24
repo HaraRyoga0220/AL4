@@ -3,9 +3,17 @@
 #include"WorldTransform.h"
 #include"MathUtilityForText.h"
 #include"Input.h"
+#include"BaseCharacter.h"
 
-class Player {
+class Player:public BaseCharacter {
 public:
+	enum {
+		kModelIndexBody,
+		kModelIndexHead,
+		kModelIndexL_arm,
+		kModelIndexR_arm,
+	};
+
 
 	void Initialize(Model*modelBody,Model*modelHead,Model*modelL_arm,Model*modelR_arm);
 
